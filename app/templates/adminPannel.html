@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+  <!-- Signup form for customer -->
+  <div class="container p-0 my-5 mybg">
+    <div class="row m-0 d-flex justify-content-center">
+        <h3 class="text-center">All Trips</h3>
+        {% if error %}
+        <small>{{ error }}</small>
+        {% endif %}
+    </div>
+    
+    <div class="row m-0 d-flex justify-content-center bg-light" style="padding-top: 10px; padding-bottom: 10px;">
+        {% if Trip %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                <th scope="col">customer</th>
+                <th scope="col">driver</th>
+                <th scope="col">pickup</th>
+                <th scope="col">drop</th>
+                <th scope="col">pickupDate</th>
+                <th scope="col">dropDate</th>
+                <th scope="col">fare</th>
+                <th scope="col">status</th>
+                <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in Trip %}
+                <tr>
+                  <th scope="row">{{ i.customer }}</th>
+                  <td>{{ i.driver }}</td>
+                  <td>{{ i.pickup }}</td>
+                  <td>{{ i.drop }}</td>
+                  <td>{{ i.pickupDate }}</td>
+                  <td>{{ i.dropDate }}</td>
+                  <td>{{ i.fare }}</td>
+                  <td>{{ i.status }}</td>
+                  <td>
+                    <button type="button" class="btn btn-primary ml-auto" data-toggle="modal" data-target="#ActionTripsModal">
+                      Go!
+                    </button>
+                  </td>
+                </tr>
+
+
+                <!-- Modal -->
+                <div class="modal fade" id="ActionTripsModal" tabindex="-1" role="dialog" aria-labelledby="ActionTripsModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="ActionTripsModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <form method="post">
+                          {% csrf_token %}
+                          <input type="number" name="tripId" value="{{ i.pk }}" hidden>
+                          <div class="form-group">
+                              <label>Pickup Date</label>
+                              <select class="form-control" name="driver">
+                                  {% for j in driver %}
+                                  <option value="{{ j.pk }}">{{ j }}</option>
+                                  {% endfor %}
+                                </select>
+                          </div>
+                          <div class="form-group">
+                              <label>fare</label>
+                              <textarea name="fare" class="form-control" rows="1"></textarea>
+                          </div>
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+                {% endfor %}
+            </tbody>
+            </table>
+        {% else %}
+        <h2>No data Found</h2>
+        {% endif %}
+    </div>
+  </div>
+
+
+
+  
+
+
+{% endblock %}
+

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+  <!-- 1st style -->      <!-- Theme Color: #64B53B -->
+
+  <div class="container-fluid p-0 mybg">
+    <div class="row m-0 d-flex justify-content-center bg-light" style="padding-top: 100px; padding-bottom: 160px;">
+      <div class="col-xl-5 mt-5" style="padding-top: 20px;">
+        <h2>
+          Taxi Booking System
+        </h2>
+        <h5>
+          EXPLORE OUR BOOKING SYSTEM AND TEST YOURSELF
+        </h5>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          uis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+          Excepteur sint occaecat  upidatat non proident, sunt in culpa qui officia deserunt ollit anim id est laborum.
+        </p>
+        {% if user.is_authenticated %}
+          {% if request.user.isCustomer %}
+            <a class="btn btn-outline-success pl-3 my-2" href="{% url 'app:allMyTrips' %}">Explore Your Workspace!</a>
+          {% elif request.user.isDriver %}
+            <a class="btn btn-outline-success pl-3 my-2" href="{% url 'app:allOrderedTrips' %}">Explore Your Workspace!</a>
+          {% elif request.user.isAdmin %}
+            <a class="btn btn-outline-success pl-3 my-2" href="{% url 'app:adminPannel' %}">Explore Your Workspace!</a>
+          {% else %}
+          <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#loginModal">Login</button>
+          {% endif %}
+        {% else %}
+          <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#loginModal">Get Started</button>
+        {% endif %}
+      </div>
+      <div class="col-xl-3 ml-5">
+        <img src="https://images.unsplash.com/photo-1526728029433-3b15d6d2836f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=449&q=80" alt="" class="img-fluid banner-pic">
+      </div>
+
+    </div>
+  </div>
+
+{% endblock %}

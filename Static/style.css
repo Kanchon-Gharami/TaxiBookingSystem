@@ -1,0 +1,103 @@
+body{
+	font-family: 'Poppins';
+}
+
+.clear{
+  clear: both;
+}
+
+.row-reverse{
+	flex-direction: row-reverse;
+}
+
+/*modal style*/
+.login-modal-title{
+	margin-left: 33%;
+	color: #434C5F;
+	font-size: 22px;
+}
+
+.modal-forgorpass{
+	color: #4E5BFF;
+	font-size: 14px;
+}
+
+.login-submit{
+	width: 90%;
+	color: white;
+	font-size: 14px;
+}
+
+.login-submit a:hover{
+	color: white !important;
+}
+
+.need-acnt{
+	color: #434C5F;
+}
+
+.need-acnt-signup{
+	color: #4E5BFF;
+}
+
+#loginEmail::placeholder{
+
+}
+
+#loginPassword::placeholder{
+
+}
+
+
+
+.reg-modal-title{
+	margin-left: 40%;
+	color: #434C5F;
+	font-size: 22px;
+}
+
+.reg-container{
+	width: 450px;
+	height: 65px;
+	border: 1px solid #B8C0D1;
+	border-left: 3px solid #64B53B;
+}
+
+.reg_typ_ico{
+	height: 40px;
+	border-right: 1px solid #B8C0D1;
+}
+
+.reg_type{
+	color: #222222;
+}
+
+
+@media only screen and (max-width: 600px) {
+	.login-reg-modal{
+		margin-left: 24%;
+	}
+	.reg-modal-title{
+		margin-left: 36%;
+	}
+	.reg-container{
+		width: 340px;
+	}
+
+}
+
+
+.profile_ico{
+	color: white;
+	max-width: 5px;
+}
+
+
+
+
+
+/*home styles*/
+.banner-pic{
+  height: 400px;
+  background-position: center;
+}

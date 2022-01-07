@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+  <!-- Signup form for customer -->
+  <div class="container p-0 my-5 mybg">
+    <h3 class="text-center">All Our Customers</h3>
+    <div class="row m-0 d-flex justify-content-center bg-light" style="padding-top: 10px; padding-bottom: 10px;">
+        {% if driverList %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                <th scope="col">username</th>
+                <th scope="col">name</th>
+                <th scope="col">email</th>
+                <th scope="col">phone</th>
+                <th scope="col">licenseNo</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in driverList %}
+                <tr>
+                <th scope="row">{{ i.user.username }}</th>
+                <td>{{ i.user.name }}</td>
+                <td>{{ i.user.email }}</td>
+                <td>{{ i.user.phone }}</td>
+                <td>{{ i.licenseNo }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+        {% else %}
+        <h2>No data Found</h2>
+        {% endif %}
+    </div>
+  </div>
+
+{% endblock %}

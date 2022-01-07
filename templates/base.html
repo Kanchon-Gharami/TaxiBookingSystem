@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+  <head>
+    <title></title>
+
+    <meta charset="UTF-8">
+
+  	<!-- media queary support -->
+  	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+
+  	<!-- Latest compiled and minified CSS -->
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+  	<!-- jQuery library -->
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  	<!-- Popper JS -->
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+  	<!-- Latest compiled JavaScript -->
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+  	<!-- animated css link -->
+  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"/>
+
+  	<!-- font awsome css link -->
+  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  	<!-- poppins font link -->
+  	<link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+
+  	<!-- roboto font link -->
+  	<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+
+  	<!-- custom css link -->
+  	<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-info my_nav_style">
+      <a class="navbar-brand" href="{% url 'app:index' %}">Taxi Booking System</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item mx-3 active">
+            <a class="nav-link" href="{% url 'app:index' %}">HOME <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item mx-3">
+            <a class="nav-link" href="{% url 'app:customerList' %}">Customers</a>
+          </li>
+          <li class="nav-item mx-3">
+            <a class="nav-link" href="{% url 'app:driverList' %}">Driver</a>
+          </li>
+          <li class="nav-item mx-3">
+            <a class="nav-link" href="{% url 'app:adminList' %}">Admin</a>
+          </li>
+        </ul>
+      </div>
+	  <ul class="navbar-nav my-2 my-lg-0">
+		{% if user.is_authenticated %}
+		  <li class="nav-item mx-3">
+			<a class="nav-link" href="#">
+			  hi {{ user.username }}!
+			</a>
+		  </li>
+		  <a class="btn btn-outline-light my-2 my-sm-0" href="{% url 'app:logout' %}">Logout</a>
+		{% else %}
+		  <button class="btn btn-outline-light my-2 my-sm-0" data-toggle="modal" data-target="#loginModal">Login / Register</button>
+		{% endif %}
+	  </ul>
+    </nav>
+
+
+
+
+
+    {% block content %}
+
+    {% endblock %}
+
+
+    
+    <!-- login modal start -->
+  	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+  		<div class="modal-dialog" role="document">
+  			<div class="modal-content">
+  				<div class="modal-header">
+  					<h5 class="modal-title login-modal-title" id="loginModalLabel">Welcome back</h5>
+  					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+  						<span aria-hidden="true">&times;</span>
+  					</button>
+  				</div>
+  				<div class="modal-body">
+  					<form method="post" action="{% url 'app:signIn' %}">
+  						{% csrf_token %}
+  						<div class="form-group">
+  							<label>User name</label>
+  							<input type="text" class="form-control" name="username" placeholder="User name">
+  						</div>
+  						<div class="form-group">
+                <div class="row m-0">
+                  <label>Password</label>
+                  <a href="#" class="ml-auto">Forgot password?</a>
+                </div>
+  							<input type="password" class="form-control" name="password" placeholder="Password">
+  						</div>
+
+  						<div style="height: 80px;"></div>
+
+  						<p class="modal-forgorpass text-center">
+                <input type="submit" class="btn btn-success login-submit mt-2 ml-3" name="login" value="Login">
+  						</p>
+  						
+  						<p class="need-acnt text-center mt-3">
+  							Need an account?
+  							<a href="#" class="need-acnt-signup" type="button" data-toggle="modal" data-target="#registerModal" data-dismiss="modal" aria-label="Close">
+  								Sign up
+  							</a>
+  						</p>
+  					</form>
+  				</div>
+  			</div>
+  		</div>
+  	</div>
+  	<!-- login modal end -->
+
+  	<!-- register modal start -->
+  	<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+  		<div class="modal-dialog" role="document">
+  			<div class="modal-content">
+  				<div class="modal-header">
+  					<h5 class="modal-title reg-modal-title" id="registerModalLabel">Sign up</h5>
+  					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+  						<span aria-hidden="true">&times;</span>
+  					</button>
+  				</div>
+  				<div class="modal-body py-5">
+
+  					<a href="{% url 'app:signUpCustomer' %}" class="reg-container row pt-3 my-4 mx-auto">
+  						<img src="https://e7.pngegg.com/pngimages/14/827/png-clipart-computer-icons-avatar-customer-employees-heroes-public-relations-thumbnail.png" class="reg_typ_ico px-3">
+  						<p class="reg_type mt-2 ml-4">Sign up as a customer</p>
+  					</a>
+  					<a href="{% url 'app:signUpDriver' %}" class="reg-container row pt-3 my-4 mx-auto">
+  						<img src="https://stakebitz.com/assets/images/service.png" class="reg_typ_ico px-3">
+  						<p class="reg_type mt-2 ml-4">Sign up as a taxi-driver</p>
+  					</a>
+  					<a href="{% url 'app:signUpAdmin' %}" class="reg-container row pt-3 my-4 mx-auto">
+  						<img src="https://cdn-icons-png.flaticon.com/512/270/270023.png" class="reg_typ_ico px-3">
+  						<p class="reg_type mt-2 ml-4">Sign up as an admin</p>
+  					</a>
+
+  				</div>
+  				<div class="modal-footer">
+  					<p class="need-acnt text-center mt-2 mx-auto">
+  						Have an account?
+  						<a href="#" class="need-acnt-signup mx-auto" type="button" data-toggle="modal" data-target="#loginModal" data-dismiss="modal" aria-label="Close">
+  							Login
+  						</a>
+  					</p>
+  				</div>
+  			</div>
+  		</div>
+  	</div>
+  	<!-- register modal end -->
+
+
+
+
+  </body>
+</html>
+
+
+
+<!-- Table Sorting Library -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css">
+<script src=" https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
+
+<script>
+$(document).ready(function() {
+    $('#sort').DataTable();
+    $('#sortTable2').DataTable();
+} );
+</script>
