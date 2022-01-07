@@ -186,6 +186,7 @@ def tripCompleted(request, trip_id):
     try:
         tripObj = Trip.objects.get(id=trip_id)
         tripObj.status = "Completed"
+        tripObj.dropDate = datetime.now()
         tripObj.save()
         return redirect('app:allOrderedTrips')
     except Exception as e:
